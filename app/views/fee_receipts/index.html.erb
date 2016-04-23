@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Fee Receipts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Semester</th>
+      <th>Date</th>
+      <th>Receipt no</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fee_receipts.each do |fee_receipt| %>
+      <tr>
+        <td><%= fee_receipt.student_id %></td>
+        <td><%= fee_receipt.semester_id %></td>
+        <td><%= fee_receipt.date %></td>
+        <td><%= fee_receipt.receipt_no %></td>
+        <td><%= fee_receipt.description %></td>
+        <td><%= link_to 'Show', fee_receipt %></td>
+        <td><%= link_to 'Edit', edit_fee_receipt_path(fee_receipt) %></td>
+        <td><%= link_to 'Destroy', fee_receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fee receipt', new_fee_receipt_path %>

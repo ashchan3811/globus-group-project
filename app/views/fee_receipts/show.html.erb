@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @fee_receipt.student_id %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @fee_receipt.semester_id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @fee_receipt.date %>
+</p>
+
+<p>
+  <strong>Receipt no:</strong>
+  <%= @fee_receipt.receipt_no %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @fee_receipt.description %>
+</p>
+
+<%= link_to 'Edit', edit_fee_receipt_path(@fee_receipt) %> |
+<%= link_to 'Back', fee_receipts_path %>

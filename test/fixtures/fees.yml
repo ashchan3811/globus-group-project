@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tution_fee: 1
+  bus_fee: 1
+  batch_id: 1
+
+two:
+  tution_fee: 1
+  bus_fee: 1
+  batch_id: 1

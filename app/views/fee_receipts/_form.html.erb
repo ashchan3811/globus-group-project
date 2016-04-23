@@ -1,0 +1,37 @@
+<%= form_for(@fee_receipt) do |f| %>
+  <% if @fee_receipt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fee_receipt.errors.count, "error") %> prohibited this fee_receipt from being saved:</h2>
+
+      <ul>
+      <% @fee_receipt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :student_id %><br>
+    <%= f.number_field :student_id %>
+  </div>
+  <div class="field">
+    <%= f.label :semester_id %><br>
+    <%= f.number_field :semester_id %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :receipt_no %><br>
+    <%= f.number_field :receipt_no %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

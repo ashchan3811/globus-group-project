@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="text-center col-sm-3 col-lg-3 col-md-3">
+      <h1>Find us here</h1>
+      <hr/>
+      <h2>Bhopal</h2>
+          <address>
+            <strong>Globus Group of Institutions</strong><br>
+             Bangrasia Chauraha<br>
+            Bhopal<br>
+            Madhya Pradesh<br>
+            India<br>
+            Zip Code 462075<br>
+            <abbr title="Phone">P:</abbr> 0755 5681666
+          </address>
+    </div>
+  <div class="col-md-9 col-sm-9 col-lg-9">
+    <h1 class="text-center">Message us</h1>
+     <hr/>
+    <%= form_tag('sendMessage', class: "form-horizontal") do %>
+      <fieldset>
+        
+        <div class="form-group">
+          <%= label_tag(:name, 'Name' ,class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+          <div class="col-md-10 col-lg-10 col-sm-10">
+            <%= text_field_tag(:name, '',placeholder: 'What is your name?' , class: 'form-control') %>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <%= label_tag(:email, 'Email' ,class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+          <div class="col-md-10 col-lg-10 col-sm-10">
+            <%= text_field_tag(:email, '',placeholder: 'What is your email id?' , class: 'form-control') %>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <%= label_tag(:message, 'Message' ,class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+          <div class="col-md-10 col-lg-10 col-sm-10">
+            <%= text_area_tag(:email, '',placeholder: 'Write here your message.' rows: 8, class: 'form-control') %>
+          </div>
+        </div>
+        
+        
+        <div class="form-group">
+          <div class="col-md-offset-2 col-sm-10 col-sm-offset-2 col-md-10 col-lg-offset-2 col-lg-10">
+            <%= button_tag "Cancel", type: :reset ,class: 'btn btn-danger'%>
+            <%= submit_tag "Login", class: 'btn btn-primary' %>
+          </div>
+        </div>
+        
+      </fieldset>
+    <% end %>
+  </div>
+</div>

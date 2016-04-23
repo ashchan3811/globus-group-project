@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 1
+  semester_id: 1
+  date: 2016-04-18
+  receipt_no: 1
+  description: MyString
+
+two:
+  student_id: 1
+  semester_id: 1
+  date: 2016-04-18
+  receipt_no: 1
+  description: MyString
