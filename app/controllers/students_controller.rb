@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:result,:show, :edit, :update, :destroy]
 
   # GET /students
   # GET /students.json
@@ -56,9 +56,18 @@ class StudentsController < ApplicationController
   def destroy
     @student.destroy
     respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
+      format.html { redirect_to list_students_path, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def change_password
+  end
+  
+  def update_password
+  end
+  
+  def result
   end
 
   private

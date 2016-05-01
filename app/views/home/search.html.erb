@@ -1,3 +1,17 @@
 <div class="page-header">
   <h1>Search Result For Query</h1>
 </div>
+
+<% if @student.present? %>
+
+<div class="container">
+  <h2>Enroll: <%= @student.enrollment %></h2>
+  <h2>Name: <%= @student.name %></h2>
+  <h2>Email: <%= @student.email %></h2>
+</div>
+
+<% else %>
+
+<h3>No Result Found</h3>
+
+<% end %>

@@ -1,11 +1,7 @@
 class FacultiesController < ApplicationController
   before_action :set_faculty, only: [:show, :edit, :update, :destroy]
 
-  # GET /faculties
-  # GET /faculties.json
-  def index
-    @faculties = Faculty.all
-  end
+  
 
   # GET /faculties/1
   # GET /faculties/1.json
@@ -56,7 +52,7 @@ class FacultiesController < ApplicationController
   def destroy
     @faculty.destroy
     respond_to do |format|
-      format.html { redirect_to faculties_url, notice: 'Faculty was successfully destroyed.' }
+      format.html { redirect_to list_faculty_path,:flash => {:success => 'Faculty was successfully destroyed.' }}
       format.json { head :no_content }
     end
   end

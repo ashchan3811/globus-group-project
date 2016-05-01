@@ -9,11 +9,13 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to 'Admin' ,admin_path, class: "navbar-brand" %>
+      <p class="navbar-text">Signed in as <%= admin.name  if admin_logged_in? %></p>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="menu">
       <ul class="nav navbar-nav navbar-right">
+        <li ><%= link_to "Home" , root_path  if admin_logged_in? %></li>
         <li><%= link_to "Logout" , admin_logout_path  if admin_logged_in? %></li>
       </ul>
     </div><!-- /.navbar-collapse -->

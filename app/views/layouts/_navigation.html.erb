@@ -12,29 +12,88 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Student' , students_path  %></li>
-        <li><%= link_to 'Faculty' , students_path  %></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+         <li class="dropdown">
+	           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Colleges <span class="caret"></span></a>
+    		      <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Bhopal Institute of Technology and Science</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="#">Civil Engineering</a></li>
+                  <li><a href="#">Computer Science</a></li>
+                  <li><a href="#">Mechanical Engineering</a></li>
+                  <li><a href="#">Electrical Engineering</a></li>
+                  <li><a href="#">Electronics Engineering</a></li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Bhopal Institute of Technology</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="#">Computer Science</a></li>
+                  <li><a href="#">Mechanical Engineering</a></li>
+                  <li><a href="#">Electrical Engineering</a></li>
+                  <li><a href="#">Electronics Engineering</a></li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Bhopal Institute of Technology and Management</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="#">Computer Science</a></li>
+                  <li><a href="#">Mechanical Engineering</a></li>
+                  <li><a href="#">Electrical Engineering</a></li>
+                  <li><a href="#">Electronics Engineering</a></li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+              <li class="dropdown-submenu">
+                <a tabindex="-1" href="#">Globus Engineering College</a>
+                <ul class="dropdown-menu">
+                  <li><a tabindex="-1" href="#">Computer Science</a></li>
+                  <li><a href="#">Mechanical Engineering</a></li>
+                  <li><a href="#">Electrical Engineering</a></li>
+                  <li><a href="#">Electronics Engineering</a></li>
+                </ul>
+              </li>
+              </ul>
+	        </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search" method="get" action="search">
+      <form class="navbar-form navbar-right" role="search" method="get" action="search">
         <div class="form-group">
-          <input type="text" class="form-control" name="enrollment" placeholder="Enrollment Here">
+          <input type="text" class="form-control" name="enrollment" placeholder="Enrollment">
         </div>
-        <button type="submit" class="btn btn-danger">Search</button>
+        <button type="submit" class="btn btn-success">Search</button>
+        
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to 'Admin' , admin_login_path %></li>
+        <% if student_logged_in? %>
+          <li><%= link_to 'Home' , student_path(@student) %></li>
+          <li><%= link_to 'Logout' , student_logout_path %></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Settings <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Change Password</a></li>
+              <li><a href="#">Update Profile</a></li>
+            </ul>
+          </li>
+        <% elsif faculty_logged_in? %>
+        <li><%= link_to 'Logout' , faculty_logout_path %></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Settings <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Change Password</a></li>
+              <li><a href="#">Update Profile</a></li>
+            </ul>
+          </li>
+        <% else  %>
+          <li><%= link_to 'Admin' , admin_login_path %></li>
+          <li><%= link_to 'Student' , student_login_path  %></li>
+          <li><%= link_to 'Faculty' , faculty_login_path  %></li>
+        <% end %>
       </ul>
     </div>
   </div>
