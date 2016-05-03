@@ -69,6 +69,6 @@ class ResultsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def result_params
-      params.require(:result).permit(:exam_id, :subject_id, :subject_id, :grade_id, :status_id)
+      params.require(:result).permit( :subject_id, :student_id, :grade_id, :semester_id)
     end
 end

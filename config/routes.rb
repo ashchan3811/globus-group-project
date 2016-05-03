@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :faculties
   resources :subjects
   resources :fee_receipts
+  resources :results
   
   get 'students/:id/results/:semester_id' , to: 'students#result', as: 'show_result'
 end
