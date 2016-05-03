@@ -58,6 +58,8 @@
               </ul>
 	        </li>
       </ul>
+      <% if student_logged_in? || admin_logged_in? || faculty_logged_in?%>
+      <% else %>
       <form class="navbar-form navbar-right" role="search" method="get" action="search">
         <div class="form-group">
           <input type="text" class="form-control" name="enrollment" placeholder="Enrollment">
@@ -65,6 +67,7 @@
         <button type="submit" class="btn btn-success">Search</button>
         
       </form>
+      <% end %>
       <ul class="nav navbar-nav navbar-right">
         <% if student_logged_in? %>
           <li><%= link_to 'Home' , student_path(@student) %></li>
@@ -89,6 +92,8 @@
               <li><a href="#">Update Profile</a></li>
             </ul>
           </li>
+        <% elsif admin_logged_in? %>
+        <li><%= link_to 'Admin' , admin_login_path %></li>
         <% else  %>
           <li><%= link_to 'Admin' , admin_login_path %></li>
           <li><%= link_to 'Student' , student_login_path  %></li>

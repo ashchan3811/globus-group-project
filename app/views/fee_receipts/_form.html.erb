@@ -1,23 +1,13 @@
-<%= form_for(@fee_receipt) do |f| %>
-  <% if @fee_receipt.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@fee_receipt.errors.count, "error") %> prohibited this fee_receipt from being saved:</h2>
-
-      <ul>
-      <% @fee_receipt.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= render 'layouts/errors', object: @fee_receipt %>
+<%= form_for(@fee_receipt, html: {class: 'form-horizontal'}) do |f| %>
 
   <div class="field">
     <%= f.label :student_id %><br>
-    <%= f.number_field :student_id %>
+    <%= f.collection_select :student_id,Student.all,:id,:enrollment,{} %>
   </div>
   <div class="field">
     <%= f.label :semester_id %><br>
-    <%= f.number_field :semester_id %>
+    <%= f.collection_select :semester_id ,Semester.all,:id,:id,{}%>
   </div>
   <div class="field">
     <%= f.label :date %><br>

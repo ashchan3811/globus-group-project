@@ -21,13 +21,21 @@
   </div>
   <div class="field">
     <%= f.label :semester_id %><br>
-    <%= f.number_field :semester_id %>
+    <%= f.collection_select :semester_id,Semester.all,:id,:name,{} %>
+  </div>
+  <div class="field">
+    <%= f.label :branch_id %><br>
+    <%= f.collection_select :branch_id, Branch.all, :id, :name,{} %>
+  </div>
+  <div class="field">
+    <%= f.label :subject_type_id %><br>
+    <%= f.collection_select :subject_type_id  , SubjectType.all , :id,:name,{}%>
   </div>
   <div class="field">
     <%= f.label :syllabus_id %><br>
-    <%= f.number_field :syllabus_id %>
+    <%= f.collection_select :syllabus_id ,Syllabus.all,:id,:name,{}%>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:'btn btn-sm btn-success'%>
   </div>
 <% end %>

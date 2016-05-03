@@ -1,8 +1,10 @@
 class FacultiesController < ApplicationController
-  before_action :set_faculty, only: [:show, :edit, :update, :destroy]
+  before_action :set_faculty, only: [:index,:show, :edit, :update, :destroy]
 
   
-
+  def index
+    @students = Student.where(:college_id => @faculty.college_id , :branch_id => @faculty.branch_id)
+  end
   # GET /faculties/1
   # GET /faculties/1.json
   def show
@@ -24,7 +26,7 @@ class FacultiesController < ApplicationController
 
     respond_to do |format|
       if @faculty.save
-        format.html { redirect_to @faculty, notice: 'Faculty was successfully created.' }
+        format.html { redirect_to @faculty,:flash => {:success => 'Faculty was successfully created.' } }
         format.json { render :show, status: :created, location: @faculty }
       else
         format.html { render :new }
@@ -38,7 +40,7 @@ class FacultiesController < ApplicationController
   def update
     respond_to do |format|
       if @faculty.update(faculty_params)
-        format.html { redirect_to @faculty, notice: 'Faculty was successfully updated.' }
+        format.html { redirect_to @faculty,:flash => {:success => 'Faculty was successfully updated.' }}
         format.json { render :show, status: :ok, location: @faculty }
       else
         format.html { render :edit }
@@ -65,6 +67,6 @@ class FacultiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def faculty_params
-      params.require(:faculty).permit(:name, :email, :password, :password_confirmation, :college_id, :address)
+      params.require(:faculty).permit(:name, :email, :password, :password_confirmation, :college_id, :address ,:branch_id,:subject_id)
     end
 end

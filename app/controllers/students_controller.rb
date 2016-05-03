@@ -14,11 +14,19 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    @student = Student.new
+    if admin_logged_in?
+      @student = Student.new
+    else
+      redirect_to admin_login_path
+    end
   end
 
   # GET /students/1/edit
   def edit
+    if admin_logged_in?
+    else
+      redirect_to admin_login_path
+    end
   end
 
   # POST /students
@@ -28,7 +36,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        format.html { redirect_to @student,:flash => {:success => 'Faculty was successfully created.' } }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
@@ -42,7 +50,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { redirect_to @student, :flash => {:success => 'Faculty was successfully updated.' }}
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit }
@@ -56,7 +64,7 @@ class StudentsController < ApplicationController
   def destroy
     @student.destroy
     respond_to do |format|
-      format.html { redirect_to list_students_path, notice: 'Student was successfully destroyed.' }
+      format.html { redirect_to list_students_path, :flash => {:success => 'Faculty was successfully destroyed.' }}
       format.json { head :no_content }
     end
   end

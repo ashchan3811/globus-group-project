@@ -11,19 +11,16 @@
   <%= render 'layouts/admin_navigation' %>
  
   <div class="container">
-    <div class="row">
-       <%= render 'layouts/message' %>
-    </div>
+    <%= render 'layouts/message' %>
     <div class="page-header">
          <h1> Admin_Dashboard</h1>
-      </div>
+    </div>
     <div class="row">
-      
-      <div class="col md-3 col-sm-3">
+      <div class="col-md-2 col-sm-2">
         <%= render 'layouts/admin_side_nav' %>
       </div>
       
-      <div class="col-md-9 col-sm-9">
+      <div class="col-md-10 col-sm-10">
         <%= yield %>
       </div>
     </div>

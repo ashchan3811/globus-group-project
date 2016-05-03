@@ -69,13 +69,34 @@ class HomeController < ApplicationController
   
   #Faculty Login Logic
   def faculty_login
+    if faculty_logged_in?
+      flash[:success] = "You are already logged in as ' " + session[:email] + " '"
+      redirect_to faculty_path(@current_faculty)
+    else
+      flash.now[:danger] = "You are not logged in.Please Login."
+      render 'faculty_login'
+    end
   end
   
   def faculty_signin
-    redirect_to faculties_path
+     faculty = Faculty.find_by(email: params[:email])
+    
+    if faculty && faculty.authenticate(params[:password])
+      session[:email] = faculty.email
+      session[:name] = faculty.name
+      flash[:success] = "You are logged in as  " + faculty.email
+      redirect_to faculty_path(faculty)
+    else
+      flash.now[:danger] = "Your email address or password do not match"
+      render 'faculty_login'
+    end
   end
   
   def faculty_logout
+    session[:email] = nil
+    session[:name] = nil
+    flash[:success] = "You have logged out successfully"
+    redirect_to root_path
   end
   
   def forgot_password

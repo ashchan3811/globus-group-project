@@ -25,9 +25,14 @@ Rails.application.routes.draw do
   
   get 'admin/faculties' , to: 'admin#faculties' , as: 'list_faculty'
   get 'admin/students' , to: 'admin#students' , as: 'list_students'
+  
+  get 'faculty/:id/home' , to: 'faculties#index' , as: 'home_faculty'
+  
   resources :admin, only: [:show,:edit,:update]
   resources :students
   resources :faculties
+  resources :subjects
+  resources :fee_receipts
   
   get 'students/:id/results/:semester_id' , to: 'students#result', as: 'show_result'
 end

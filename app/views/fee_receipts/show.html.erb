@@ -1,29 +1,36 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @fee_receipt.student.enrollment  %> - <%= @fee_receipt.student.name %></h1>
+</div>
+<div  class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Fee Receipt Details</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-hover ">
+        <tr>
+          <th>Student</th>
+          <td><%= @fee_receipt.student.enrollment  %> - <%= @fee_receipt.student.name %></th>
+        </tr>
+        <tr>
+          <th>Semester</th>
+          <td><%= @fee_receipt.semester_id %></th>
+        </tr>
+        <tr>
+          <th>Date</th>
+          <td><%= @fee_receipt.date %></th>
+        </tr>
+        <tr>
+          <th>Receipt no</th>
+          <td><%= @fee_receipt.receipt_no %></th>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td><%= @fee_receipt.description %></th>
+        </tr>
+    </table> 
+  </div>
+</div>
 
-<p>
-  <strong>Student:</strong>
-  <%= @fee_receipt.student_id %>
-</p>
-
-<p>
-  <strong>Semester:</strong>
-  <%= @fee_receipt.semester_id %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @fee_receipt.date %>
-</p>
-
-<p>
-  <strong>Receipt no:</strong>
-  <%= @fee_receipt.receipt_no %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @fee_receipt.description %>
-</p>
-
-<%= link_to 'Edit', edit_fee_receipt_path(@fee_receipt) %> |
-<%= link_to 'Back', fee_receipts_path %>
+<hr/>
+<%= link_to 'Edit', edit_fee_receipt_path(@fee_receipt) , class: 'btn btn-sm btn-info'%>
+<%= link_to 'Back', fee_receipts_path , class: 'btn btn-sm btn-danger'%>

@@ -28,7 +28,7 @@ class FeeReceiptsController < ApplicationController
 
     respond_to do |format|
       if @fee_receipt.save
-        format.html { redirect_to @fee_receipt, notice: 'Fee receipt was successfully created.' }
+        format.html { redirect_to @fee_receipt,:flash => {:success => 'Fee receipt was successfully created.' } }
         format.json { render :show, status: :created, location: @fee_receipt }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class FeeReceiptsController < ApplicationController
   def update
     respond_to do |format|
       if @fee_receipt.update(fee_receipt_params)
-        format.html { redirect_to @fee_receipt, notice: 'Fee receipt was successfully updated.' }
+        format.html { redirect_to @fee_receipt, :flash => {:success => 'Fee receipt was successfully updated.' }  }
         format.json { render :show, status: :ok, location: @fee_receipt }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class FeeReceiptsController < ApplicationController
   def destroy
     @fee_receipt.destroy
     respond_to do |format|
-      format.html { redirect_to fee_receipts_url, notice: 'Fee receipt was successfully destroyed.' }
+      format.html { redirect_to fee_receipts_url, :flash => {:success => 'Fee receipt was successfully destroyed.' } }
       format.json { head :no_content }
     end
   end
