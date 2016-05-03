@@ -1,41 +1,46 @@
-<%= form_for(@subject) do |f| %>
-  <% if @subject.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+<%= render 'layouts/errors', object: @subject %>
+<%= form_for(@subject,html:{class: 'form-horizontal'}) do |f| %>
 
-      <ul>
-      <% @subject.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="form-group">
+       <%= f.label(:name,'Subject Name',class: 'col-lg-2 col-sm-2 col-md-2 control-label') %>
+       <div class="col-lg-10 col-sm-10 col-md-10">
+         <%= f.text_field(:name, placeholder: 'Subject Name',class: 'form-control') %>
+       </div>
+  </div>
+  <div class="form-group">
+       <%= f.label(:code,'Subject Code',class: 'col-lg-2 col-sm-2 col-md-2 control-label') %>
+       <div class="col-lg-10 col-sm-10 col-md-10">
+         <%= f.text_field(:code, placeholder: 'Subject Code',class: 'form-control') %>
+       </div>
+  </div>
+  <div class="form-group">
+       <%= f.label(:semester_id,'Semseter', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+       <div class="col-lg-10 col-sm-10 col-md-10">
+         <%= f.collection_select :semester_id, Semester.all, :id, :name,{},{ :class => 'form-control'}  %>
+       </div>
+  </div>
+  <div class="form-group">
+       <%= f.label(:branch_id,'Branch', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+       <div class="col-lg-10 col-sm-10 col-md-10">
+         <%= f.collection_select :branch_id, Branch.all, :id, :name,{},{ :class => 'form-control'}  %>
+       </div>
+  </div>
+  <div class="form-group">
+       <%= f.label(:subject_type_id,'Subject Type', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+       <div class="col-lg-10 col-sm-10 col-md-10">
+         <%= f.collection_select :subject_type_id, SubjectType.all, :id, :name,{},{ :class => 'form-control'}  %>
+       </div>
+  </div>
+  <div class="form-group">
+       <%= f.label(:syllabus_id,'Syllabus Type', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+       <div class="col-lg-10 col-sm-10 col-md-10">
+         <%= f.collection_select :syllabus_id, Syllabus.all, :id, :name,{},{ :class => 'form-control'}  %>
+       </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
+      <%= f.submit class: 'btn btn-danger btn-block'  %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
-    <%= f.label :semester_id %><br>
-    <%= f.collection_select :semester_id,Semester.all,:id,:name,{} %>
-  </div>
-  <div class="field">
-    <%= f.label :branch_id %><br>
-    <%= f.collection_select :branch_id, Branch.all, :id, :name,{} %>
-  </div>
-  <div class="field">
-    <%= f.label :subject_type_id %><br>
-    <%= f.collection_select :subject_type_id  , SubjectType.all , :id,:name,{}%>
-  </div>
-  <div class="field">
-    <%= f.label :syllabus_id %><br>
-    <%= f.collection_select :syllabus_id ,Syllabus.all,:id,:name,{}%>
-  </div>
-  <div class="actions">
-    <%= f.submit class:'btn btn-sm btn-success'%>
   </div>
 <% end %>

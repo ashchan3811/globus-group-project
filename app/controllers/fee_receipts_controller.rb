@@ -69,6 +69,6 @@ class FeeReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fee_receipt_params
-      params.require(:fee_receipt).permit(:student_id, :semester_id, :date, :receipt_no, :description)
+      params.require(:fee_receipt).permit(:student_id, :semester_id, :date, :receipt_no, :description , :amount)
     end
 end

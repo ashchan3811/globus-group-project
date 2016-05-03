@@ -32,10 +32,9 @@
 </div>
 
 <hr/>
-<%= link_to 'Edit', edit_faculty_path(@faculty) , class: 'btn btn-sm btn-info'%>
-<%= link_to 'Back', list_faculty_path , class: 'btn btn-sm btn-danger'%>
 
 <% if faculty_logged_in? %>
+  <%= link_to 'Edit Profile', edit_faculty_path(@faculty) , class: 'btn btn-sm btn-info'%>
   <div class="pull-right">
     <%= link_to 'Faculty Home', home_faculty_path(@faculty) , class: 'btn btn-sm btn-success'%>
   </div>

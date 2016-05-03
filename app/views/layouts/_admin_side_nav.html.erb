@@ -1,6 +1,6 @@
 <nav id="sidemenu">
 <ul class="nav nav-pills nav-stacked">
-  <li class="active"><%= link_to 'Home' , admin_path %></li>
+  <li class="active"><%= link_to 'Home' , admin_path(@admin) %></li>
   <li><%= link_to 'Students' , list_students_path %></li>
   <li ><%= link_to 'Faculty' , list_faculty_path %></li>
   <li class="dropdown">
@@ -8,8 +8,8 @@
       Settings <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="#">Change Password</a></li>
-      <li><a href="#">Update Profile</a></li>
+      <li><%= link_to 'Change Password' , admin_change_password_path(@admin) %></li>
+      <li><%= link_to 'Update Profile' , update_admin_profile_path(@admin) %></li>
     </ul>
   </li>
 </ul>

@@ -105,16 +105,22 @@
           <th>Semester</th>
           <th>Amount</th>
           <th>Date</th>
-          <th>Paid By</th>
+          <th>Receipt No</th>
+          <th colspan="3">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr  class="success">
-          <td>1</td>
-          <td>Column content</td>
-          <td>Column content</td>
-          <td>Column content</td>
-        </tr>
+        <% @student.fee_receipts.each do |fee_receipt| %>
+          <tr  class="default">
+            <td><%= fee_receipt.semester.id %></td>
+            <td><%= fee_receipt.amount %></td>
+            <td><%= fee_receipt.date %></td>
+            <td><%= fee_receipt.receipt_no %></td>
+            <td><%= link_to 'Show', fee_receipt ,class: 'btn btn-xs btn-info'%></td>
+            <td><%= link_to 'Edit', edit_fee_receipt_path(fee_receipt) ,class: 'btn btn-xs btn-success'%></td>
+            <td><%= link_to 'Destroy', fee_receipt, method: :delete, data: { confirm: 'Are you sure?' } ,class: 'btn btn-xs btn-danger'%></td>
+           </tr>
+        <% end %>
       </tbody>
     </table> 
   </div>
@@ -122,4 +128,6 @@
 
 <% if admin_logged_in? %>
   <%= link_to 'Back to Admin' , list_students_path , class: 'btn btn-success btn-sm' %>
+<% elsif  faculty_logged_in? %>
+  <%= link_to 'Back to Faculty' , @faculty , class: 'btn btn-success btn-sm' %>
 <% end %>

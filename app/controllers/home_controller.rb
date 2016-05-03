@@ -1,6 +1,13 @@
 class HomeController < ApplicationController
   
   def index
+    if admin_logged_in?
+      @admin
+    elsif student_logged_in?
+      @student
+    elsif faculty_logged_in?
+      @faculty
+    end
   end
   
   def search
@@ -11,7 +18,7 @@ class HomeController < ApplicationController
   def admin_login
     if admin_logged_in?
       flash[:success] = "You are already logged in as Admin with  ' " + session[:email] + "'"
-      redirect_to admin_path
+      redirect_to admin_path(@admin)
     else
       flash.now[:danger] = "You are not logged in.Please Login."
       render 'admin_login'
@@ -19,12 +26,12 @@ class HomeController < ApplicationController
   end
   
   def admin_signin
-    admin = Admin.find_by(email: params[:email])
+    @admin = Admin.find_by(email: params[:email])
     
-    if admin && admin.authenticate(params[:password])
-      session[:email] = admin.email
+    if @admin && @admin.authenticate(params[:password])
+      session[:email] = @admin.email
       flash[:success] = "You are logged in as admin with email " + admin.email
-      redirect_to admin_path
+      redirect_to admin_path(@admin)
     else
       flash.now[:danger] = "Your email address or password do not match"
       render 'admin_login'
@@ -41,7 +48,7 @@ class HomeController < ApplicationController
   def student_login
     if student_logged_in?
       flash[:success] = "You are already logged in as ' " + session[:enrollment] + " '"
-      redirect_to student_path(@current_student)
+      redirect_to student_path(@student)
     else
       flash.now[:danger] = "You are not logged in.Please Login."
       render 'student_login'
@@ -49,12 +56,12 @@ class HomeController < ApplicationController
   end
   
   def student_signin
-    student = Student.find_by(enrollment: params[:enrollment])
+    @student = Student.find_by(enrollment: params[:enrollment])
     
-    if student && student.authenticate(params[:password])
-      session[:enrollment] = student.enrollment
-      flash[:success] = "You are logged in as  " + student.email
-      redirect_to student_path(student)
+    if @student && @student.authenticate(params[:password])
+      session[:enrollment] = @student.enrollment
+      flash[:success] = "You are logged in as  " + @student.email
+      redirect_to student_path(@student)
     else
       flash.now[:danger] = "Your email address or password do not match"
       render 'student_login'
@@ -71,7 +78,7 @@ class HomeController < ApplicationController
   def faculty_login
     if faculty_logged_in?
       flash[:success] = "You are already logged in as ' " + session[:email] + " '"
-      redirect_to faculty_path(@current_faculty)
+      redirect_to faculty_path(@faculty)
     else
       flash.now[:danger] = "You are not logged in.Please Login."
       render 'faculty_login'
@@ -79,13 +86,13 @@ class HomeController < ApplicationController
   end
   
   def faculty_signin
-     faculty = Faculty.find_by(email: params[:email])
+     @faculty = Faculty.find_by(email: params[:email])
     
-    if faculty && faculty.authenticate(params[:password])
-      session[:email] = faculty.email
-      session[:name] = faculty.name
-      flash[:success] = "You are logged in as  " + faculty.email
-      redirect_to faculty_path(faculty)
+    if @faculty && @faculty.authenticate(params[:password])
+      session[:email] = @faculty.email
+      session[:name] = @faculty.name
+      flash[:success] = "You are logged in as  " + @faculty.email
+      redirect_to faculty_path(@faculty)
     else
       flash.now[:danger] = "Your email address or password do not match"
       render 'faculty_login'
@@ -98,7 +105,5 @@ class HomeController < ApplicationController
     flash[:success] = "You have logged out successfully"
     redirect_to root_path
   end
-  
-  def forgot_password
-  end
+
 end

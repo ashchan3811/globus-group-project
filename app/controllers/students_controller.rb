@@ -1,5 +1,7 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:result,:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:update_password,:change_password,:result,:show, :edit, :update, :destroy]
+  before_action :set_admin, only: [:index,:new,:create,:destroy,:result,:show,:edit,:update]
+  before_action :check_student_login , only: [:update_password,:change_password,:result,:show,:edit,:update]
 
   # GET /students
   # GET /students.json
@@ -14,19 +16,11 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    if admin_logged_in?
-      @student = Student.new
-    else
-      redirect_to admin_login_path
-    end
+    @student = Student.new
   end
 
   # GET /students/1/edit
   def edit
-    if admin_logged_in?
-    else
-      redirect_to admin_login_path
-    end
   end
 
   # POST /students
@@ -36,7 +30,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student,:flash => {:success => 'Faculty was successfully created.' } }
+        format.html { redirect_to @student,:flash => {:success => 'Student was successfully created.' } }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
@@ -50,7 +44,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to @student, :flash => {:success => 'Faculty was successfully updated.' }}
+        format.html { redirect_to @student, :flash => {:success => 'Student was successfully updated.' }}
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit }
@@ -64,7 +58,7 @@ class StudentsController < ApplicationController
   def destroy
     @student.destroy
     respond_to do |format|
-      format.html { redirect_to list_students_path, :flash => {:success => 'Faculty was successfully destroyed.' }}
+      format.html { redirect_to list_students_path, :flash => {:success => 'Student was successfully destroyed.' }}
       format.json { head :no_content }
     end
   end
@@ -73,6 +67,14 @@ class StudentsController < ApplicationController
   end
   
   def update_password
+    if @student.authenticate(params[:old_password])
+      @student.update(password: params[:new_password])
+      flash[:success] = "Your password is changed successfully."
+      redirect_to student_path(@student)
+    else
+      flash.now[:danger] = "Your old password do not match"
+      render 'change_password'
+    end
   end
   
   def result
@@ -87,5 +89,19 @@ class StudentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
       params.require(:student).permit(:name, :enrollment, :email, :password, :password_confirmation, :college_id, :semester_id, :branch_id, :batch_id, :dateofbirth, :father_name, :mothe_name, :phone, :current_address, :permanent_address)
+    end
+
+    def set_admin
+      if admin_logged_in? || faculty_logged_in?
+      else
+        redirect_to admin_login_path
+      end
+    end
+    
+    def check_student_login
+      if student_logged_in? || faculty_logged_in?
+      else
+        redirect_to student_login_path
+      end
     end
 end

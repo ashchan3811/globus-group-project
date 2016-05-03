@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   root "home#index"
   
-  get 'admin' , to: 'admin#index' , as: 'admin'
+  get 'admin/:id' , to: 'admin#index' , as: 'admin'
   get 'search' , to: 'home#search'
   
   get 'admin_login' , to: 'home#admin_login'
@@ -20,13 +20,23 @@ Rails.application.routes.draw do
   
   get 'student_logout' , to: 'home#student_logout'
   
-  get 'student/:id/change_password' , to: 'students#change_password' , as: 'student_change_password'
-  post 'student/:id/change_password' , to: 'students#update_password'
+  get 'students/:id/change_password' , to: 'students#change_password' , as: 'student_change_password'
+  post 'students/:id/change_password' , to: 'students#update_password'
   
-  get 'admin/faculties' , to: 'admin#faculties' , as: 'list_faculty'
-  get 'admin/students' , to: 'admin#students' , as: 'list_students'
+  get 'admins/:id/change_password' , to: 'admin#change_password' , as: 'admin_change_password'
+  post 'admins/:id/change_password' , to: 'admin#update_password'
   
-  get 'faculty/:id/home' , to: 'faculties#index' , as: 'home_faculty'
+  get 'faculties/:id/change_password' , to: 'faculties#change_password' , as: 'faculty_change_password'
+  post 'faculties/:id/change_password' , to: 'faculties#update_password'
+  
+  get 'admins/:id/faculties' , to: 'admin#faculties' , as: 'list_faculty'
+  get 'admins/:id/students' , to: 'admin#students' , as: 'list_students'
+  
+  get 'admins/:id/update_profile' , to: 'admin#edit' , as: 'update_admin_profile'
+  post 'admins/:id/update_profile' , to: 'admin#update'
+  
+  get 'faculties/:id/home' , to: 'faculties#index' , as: 'home_faculty'
+  get 'faculties/:id/students', to: 'faculties#students' , as: 'student_faculty'
   
   resources :admin, only: [:show,:edit,:update]
   resources :students

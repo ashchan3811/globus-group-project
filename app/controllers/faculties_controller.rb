@@ -1,8 +1,13 @@
 class FacultiesController < ApplicationController
-  before_action :set_faculty, only: [:index,:show, :edit, :update, :destroy]
+  before_action :set_faculty, only: [:change_password,:update_password,:students,:index,:show, :edit, :update, :destroy]
+  before_action :check_login, only: [:change_password,:update_password,:students,:index,:show, :edit, :update, :destroy]
 
   
   def index
+    
+  end
+  
+  def students
     @students = Student.where(:college_id => @faculty.college_id , :branch_id => @faculty.branch_id)
   end
   # GET /faculties/1
@@ -58,7 +63,19 @@ class FacultiesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def change_password
+  end
+  
+  def update_password
+    if @faculty.authenticate(params[:old_password])
+      @faculty.update(password: params[:new_password])
+      flash[:success] = "Your password is changed successfully."
+      redirect_to faculty_path(@faculty)
+    else
+      flash.now[:danger] = "Your old password do not match"
+      render 'change_password'
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_faculty
@@ -69,4 +86,12 @@ class FacultiesController < ApplicationController
     def faculty_params
       params.require(:faculty).permit(:name, :email, :password, :password_confirmation, :college_id, :address ,:branch_id,:subject_id)
     end
+    
+    def check_login
+      if faculty_logged_in?
+      else
+        redirect_to faculty_login_path
+      end
+    end
+
 end

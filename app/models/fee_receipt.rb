@@ -6,4 +6,5 @@ class FeeReceipt < ActiveRecord::Base
   validates :semester_id , presence: true
   validates :receipt_no , presence: true
   validates :description , presence: true
+  validates :amount , presence: true
 end

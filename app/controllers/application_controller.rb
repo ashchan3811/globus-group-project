@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :admin , :admin_logged_in? , :student_logged_in? , :student , :faculty ,:faculty_logged_in?
    
     def admin
-      @current_user ||= Admin.find_by(email: session[:email]) if session[:email]
+      @admin ||= Admin.find_by(email: session[:email]) if session[:email]
     end
   
     def admin_logged_in?
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
     
     def student
-      @current_student ||= Student.find_by(enrollment: session[:enrollment]) if session[:enrollment]
+      @student ||= Student.find_by(enrollment: session[:enrollment]) if session[:enrollment]
     end
   
     def student_logged_in?
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     end
     
     def faculty
-      @current_faculty ||= Faculty.find_by(email: session[:email] , name: session[:name]) if session[:name]
+      @faculty ||= Faculty.find_by(email: session[:email] , name: session[:name]) if session[:name]
     end
     
     def faculty_logged_in?

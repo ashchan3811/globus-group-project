@@ -1,0 +1,24 @@
+<%= render 'layouts/errors', object: @admin %>
+
+<%= form_for(@admin, html: {class: 'form-horizontal'}) do |f| %>
+
+  <div class="form-group">
+       <%= f.label(:name,'Name',class: 'col-lg-2 col-md-2 control-label') %>
+       <div class="col-md-10 col-lg-10">
+         <%= f.text_field(:name, placeholder: 'Name',class: 'form-control') %>
+       </div>
+  </div>
+  
+  <div class="form-group">
+       <%= f.label(:email,'Email',class: 'col-lg-2 col-md-2 control-label') %>
+       <div class="col-md-10 col-lg-10">
+         <%= f.text_field(:email, placeholder: 'Email',class: 'form-control') %>
+       </div>
+  </div>
+
+ <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
+      <%= f.submit class: 'btn btn-danger btn-block'%>
+    </div>
+  </div>
+<% end %>
