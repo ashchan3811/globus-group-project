@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
   root "home#index"
   
+  get '/contact' , to: 'home#contact' , as: 'contact'
+  get '/gallery' , to: 'home#gallery' , as: 'gallery'
   get 'admin/:id' , to: 'admin#index' , as: 'admin'
   get 'search' , to: 'home#search'
   
@@ -23,17 +25,14 @@ Rails.application.routes.draw do
   get 'students/:id/change_password' , to: 'students#change_password' , as: 'student_change_password'
   post 'students/:id/change_password' , to: 'students#update_password'
   
-  get 'admins/:id/change_password' , to: 'admin#change_password' , as: 'admin_change_password'
-  post 'admins/:id/change_password' , to: 'admin#update_password'
+  get 'admin/:id/change_password' , to: 'admin#change_password' , as: 'admin_change_password'
+  post 'admin/:id/change_password' , to: 'admin#update_password'
   
   get 'faculties/:id/change_password' , to: 'faculties#change_password' , as: 'faculty_change_password'
   post 'faculties/:id/change_password' , to: 'faculties#update_password'
   
-  get 'admins/:id/faculties' , to: 'admin#faculties' , as: 'list_faculty'
-  get 'admins/:id/students' , to: 'admin#students' , as: 'list_students'
-  
-  get 'admins/:id/update_profile' , to: 'admin#edit' , as: 'update_admin_profile'
-  post 'admins/:id/update_profile' , to: 'admin#update'
+  get 'admin/:id/faculties' , to: 'admin#faculties' , as: 'list_faculty'
+  get 'admin/:id/students' , to: 'admin#students' , as: 'list_students'
   
   get 'faculties/:id/home' , to: 'faculties#index' , as: 'home_faculty'
   get 'faculties/:id/students', to: 'faculties#students' , as: 'student_faculty'
@@ -44,6 +43,9 @@ Rails.application.routes.draw do
   resources :subjects
   resources :fee_receipts
   resources :results
+  resources :students do
+    collection { post :import }
+  end
   
   get 'students/:id/results/:semester_id' , to: 'students#result', as: 'show_result'
 end

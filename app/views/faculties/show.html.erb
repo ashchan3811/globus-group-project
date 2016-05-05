@@ -38,4 +38,6 @@
   <div class="pull-right">
     <%= link_to 'Faculty Home', home_faculty_path(@faculty) , class: 'btn btn-sm btn-success'%>
   </div>
+<% elsif admin_logged_in? %>
+  <%= link_to 'Admin Home', list_faculty_path(@admin) , class: 'btn btn-sm btn-success'%>
 <% end %>

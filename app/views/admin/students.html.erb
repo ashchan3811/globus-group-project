@@ -1,3 +1,16 @@
+<div class="row">
+<%= form_tag(list_students_path,:method => 'get',class: 'form-inline')do %>
+    <div class="form-group">
+      <%= label_tag(:order_by, 'Order By' ,class: 'control-label') %>
+      <%= select_tag(:order_by, options_for_select([['Branch',:branch_id], ['Semester',:semester_id], ['Batch',:batch_id]]), class: 'form-control') %>
+    </div>
+    <div class="form-group">
+        <%= submit_tag "Order", class: 'btn btn-success' %>
+    </div>
+<% end %>
+</div>
+<hr/>
+<div class="row">
 <table class="table table-stripped table-hover">
   <thead>
     <tr class="warning">
@@ -16,18 +29,39 @@
       <tr class="default">
         <td><%= student.name %></td>
         <td><%= student.enrollment %></td>
-        <td><%= student.college.name %></td>
-        <td><%= student.semester.name %></td>
-        <td><%= student.branch.name %></td>
-        <td><%= student.batch.year %></td>
+        <td><%= student.college.name if student.college_id? %></td>
+        <td><%= student.semester.name if student.semester_id? %></td>
+        <td><%= student.branch.name if student.branch_id?%></td>
+        <td><%= student.batch.year if student.batch_id?%></td>
         <td><%= link_to 'Show', student  , class: 'btn btn-xs btn-info'%></td>
         <td><%= link_to 'Edit', edit_student_path(student), class: 'btn btn-xs btn-success' %></td>
         <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-xs btn-danger'%></td>
       </tr>
     <% end %>
   </tbody>
-</table>
+</table>  
+</div>
+
 
 <hr/>
 
 <%= link_to 'New Student', new_student_path , class: 'btn btn-sm btn-warning' %>
+<hr/>
+<!--
+<div >
+  <h2>Import Students from CSV File</h2>
+  <%= form_tag(import_students_path,class: 'form-horizontal',multipart: true) do %>
+    <div class="form-group">
+      <%= label_tag(:file, 'File' ,class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
+      <div class="col-md-10 col-lg-10 col-sm-10">
+        <%= file_field_tag(:file, class: 'form-control') %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10 col-lg-offset-2 col-lg-10">
+        <%= submit_tag "Import", class: 'btn btn-block btn-danger' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+-->

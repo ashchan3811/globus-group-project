@@ -2,5 +2,10 @@
 
 <%= render 'form' %>
 <hr/>
-<%= link_to 'Show', @faculty ,class:'btn btn-sm btn-info'%> 
-<%= link_to 'Back', faculty_path ,class:'btn btn-sm btn-warning pull-right'%>
+<% if faculty_logged_in? %>
+  <%= link_to 'Show', @faculty ,class:'btn btn-sm btn-info'%> 
+  <%= link_to 'Back', faculty_path ,class:'btn btn-sm btn-warning pull-right'%>
+<% elsif admin_logged_in? %>
+  <%= link_to 'Back', list_faculty_path(@admin) , class: 'btn btn-sm btn-success'%>
+<% end %>
+

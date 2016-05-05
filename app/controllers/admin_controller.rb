@@ -1,8 +1,8 @@
 class AdminController < ApplicationController
   
   layout 'admin_layout'
-  before_action :set_admin, only: [:edit,:update,:students,:faculties,:index,:update_password,:change_password, :edit, :update, :destroy]
-  
+  before_action :check_login, only: [:edit,:update,:students,:faculties,:index,:update_password,:change_password, :destroy]
+  before_action :set_admin, only: [:students,:faculties,:edit,:update]
   def index
   end
   
@@ -13,7 +13,11 @@ class AdminController < ApplicationController
   
   #GET /admin/students
   def students
-    @students = Student.all
+    if params[:order_by]
+      @students = Student.all.order(params[:order_by])
+    else
+      @students = Student.all.order(:id)
+    end
   end
   
   def edit
@@ -43,7 +47,10 @@ class AdminController < ApplicationController
   end
   
   private 
-   def set_admin
+    def set_admin
+      @admin = Admin.find(params[:id])
+    end
+   def check_login
      if admin_logged_in?
      else
        redirect_to admin_login_path

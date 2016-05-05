@@ -1,4 +1,5 @@
 class FeeReceiptsController < ApplicationController
+  before_action :set_admin , only: [:index,:new,:create,:edit,:update,:destroy]
   before_action :set_fee_receipt, only: [:show, :edit, :update, :destroy]
 
   # GET /fee_receipts

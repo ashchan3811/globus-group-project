@@ -1,6 +1,7 @@
 class FacultiesController < ApplicationController
   before_action :set_faculty, only: [:change_password,:update_password,:students,:index,:show, :edit, :update, :destroy]
-  before_action :check_login, only: [:change_password,:update_password,:students,:index,:show, :edit, :update, :destroy]
+  before_action :set_admin, only: [:new,:create,:show,:edit,:update,:destroy]
+  before_action :check_login, only: [:change_password,:update_password,:students,:index]
 
   
   def index

@@ -8,9 +8,10 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Code</th>
+      <th>Subject Code</th>
       <th>Semester</th>
-      <th>Syllabus</th>
+      <th>Syllabus Type</th>
+      <th>Practical/Theory</th>
       <th colspan="3">Actions</th>
     </tr>
   </thead>
@@ -22,14 +23,15 @@
         <td><%= subject.code %></td>
         <td><%= subject.semester.id %></td>
         <td><%= subject.syllabus.name %></td>
-        <td><%= link_to 'Show', subject, class:'btn btn-sm btn-info' %></td>
-        <td><%= link_to 'Edit', edit_subject_path(subject) , class:'btn btn-sm btn-danger'%></td>
-        <td><%= link_to 'Destroy', subject, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-sm btn-success' %></td>
+        <td><%= subject.subject_type.name %></td>
+        <td><%= link_to 'Show', subject, class:'btn btn-xs btn-info' %></td>
+        <td><%= link_to 'Edit', edit_subject_path(subject) , class:'btn btn-xs btn-danger'%></td>
+        <td><%= link_to 'Destroy', subject, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-xs btn-success' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<hr/>
 
 <%= link_to 'New Subject', new_subject_path , class:'btn btn-sm btn-success'%>

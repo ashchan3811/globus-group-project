@@ -11,7 +11,21 @@ class HomeController < ApplicationController
   end
   
   def search
-    @student = Student.find_by(enrollment: params[:enrollment].upcase)
+    if params[:enrollment].blank?
+     flash[:danger] = "First put Enrollment and then Search"
+      redirect_to :back
+    else
+       @student = Student.find_by(enrollment: params[:enrollment].upcase)
+    end
+  end
+  
+  def contact 
+  end
+  
+  def sendMessage
+  end
+  
+  def gallery
   end
   
   #Admin Login Logic
@@ -60,7 +74,7 @@ class HomeController < ApplicationController
     
     if @student && @student.authenticate(params[:password])
       session[:enrollment] = @student.enrollment
-      flash[:success] = "You are logged in as  " + @student.email
+      flash[:success] = "You are logged in as  " + @student.enrollment
       redirect_to student_path(@student)
     else
       flash.now[:danger] = "Your email address or password do not match"

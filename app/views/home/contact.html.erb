@@ -1,7 +1,42 @@
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false">
+</script>
+<script>
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(23.131812,77.5319786),
+    mapOptions = {
+        zoom: 17,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+  var map = new google.maps.Map(document.getElementById('map'), mapOptions),
+  contentString = 'Some address here..',
+  infowindow = new google.maps.InfoWindow({
+      content: contentString,
+      maxWidth: 500
+  });
+  
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map
+  });
+  
+  google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+  });
+  
+  google.maps.event.addDomListener(window, "resize", function() {
+      var center = map.getCenter();
+      google.maps.event.trigger(map, "resize");
+      map.setCenter(center);
+      });
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 <div class="row">
-    <div class="text-center col-sm-3 col-lg-3 col-md-3">
-      <h1>Find us here</h1>
+  <h1>Find us here</h1>
       <hr/>
+    <div class="text-center seperator col-sm-3 col-md-3">
       <h2>Bhopal</h2>
           <address>
             <strong>Globus Group of Institutions</strong><br>
@@ -9,11 +44,16 @@
             Bhopal<br>
             Madhya Pradesh<br>
             India<br>
-            Zip Code 462075<br>
-            <abbr title="Phone">P:</abbr> 0755 5681666
+            Zip Code 462045<br>
+            <abbr title="Phone">Ph:</abbr> 0755 5681666
           </address>
     </div>
-  <div class="col-md-9 col-sm-9 col-lg-9">
+    <div class="col-md-9 col-sm-9">
+      <div id="map_container">
+        <div id="map" ></div>
+      </div>
+    </div>
+</div>
     <h1 class="text-center">Message us</h1>
      <hr/>
     <%= form_tag('sendMessage', class: "form-horizontal") do %>
@@ -36,7 +76,7 @@
         <div class="form-group">
           <%= label_tag(:message, 'Message' ,class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
           <div class="col-md-10 col-lg-10 col-sm-10">
-            <%= text_area_tag(:email, '',placeholder: 'Write here your message.' rows: 8, class: 'form-control') %>
+            <%= text_area_tag(:email, '',placeholder: 'Write here your message.', rows: 8, class: 'form-control') %>
           </div>
         </div>
         
@@ -44,11 +84,9 @@
         <div class="form-group">
           <div class="col-md-offset-2 col-sm-10 col-sm-offset-2 col-md-10 col-lg-offset-2 col-lg-10">
             <%= button_tag "Cancel", type: :reset ,class: 'btn btn-danger'%>
-            <%= submit_tag "Login", class: 'btn btn-primary' %>
+            <%= submit_tag "Send Message", class: 'btn btn-success' %>
           </div>
         </div>
         
       </fieldset>
     <% end %>
-  </div>
-</div>

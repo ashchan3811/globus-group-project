@@ -7,7 +7,7 @@ class Subject < ActiveRecord::Base
   
   has_many :faculties
   
-  validates :name, presence: true , length: {in: 5..50}
+  #validates :name,  length: {in: 5..50}
   validates :code, presence: true , length: {in: 3..10}
   
   validates :semester_id , presence: true

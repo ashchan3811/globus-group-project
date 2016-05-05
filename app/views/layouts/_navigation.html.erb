@@ -70,35 +70,52 @@
       <% end %>
       <ul class="nav navbar-nav navbar-right">
         <% if student_logged_in? %>
-          <li><%= link_to 'Student Home' , @student %></li>
-          <li><%= link_to 'Logout' , student_logout_path %></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              Settings <span class="caret"></span>
+              Student <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+              <li><%= link_to 'Student Home' , @student %></li>
               <li><%= link_to 'Change Password' ,student_change_password_path(@student) %> </li>
               <li><%= link_to 'Update Profile' ,edit_student_path(@student) %></li>
+              <li><%= link_to 'Logout' , student_logout_path %></li>
             </ul>
           </li>
         <% elsif faculty_logged_in? %>
-        <li><%= link_to 'Faculty Home' , @faculty  %></li>
-        <li><%= link_to 'Logout' , faculty_logout_path %></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              Settings <span class="caret"></span>
+              Faculty <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+              <li><%= link_to 'Faculty Home' , home_faculty_path(@faculty) %></li>
               <li><%= link_to 'Change Password' , faculty_change_password_path(@faculty) %></li>
               <li><%= link_to 'Update Profile' , edit_faculty_path(@faculty) %></li>
+              <li><%= link_to 'Logout' , faculty_logout_path %></li>
             </ul>
           </li>
         <% elsif admin_logged_in? %>
-        <li><%= link_to 'Admin Home' , @admin %></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Admin <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Admin Home' , @admin %></li>
+              <li><%= link_to 'Logout' , admin_logout_path %></li>
+            </ul>
+        </li>
         <% else  %>
-          <li><%= link_to 'Admin' , admin_login_path %></li>
-          <li><%= link_to 'Student' , student_login_path  %></li>
-          <li><%= link_to 'Faculty' , faculty_login_path  %></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Login <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Admin' , admin_login_path %></li>
+              <li><%= link_to 'Student' , student_login_path  %></li>
+              <li><%= link_to 'Faculty' , faculty_login_path  %></li>
+            </ul>
+        </li>
+        <li><%= link_to 'Contact' , contact_path  %></li>
+        <li><%= link_to 'Gallery' , gallery_path  %></li>
         <% end %>
       </ul>
     </div>

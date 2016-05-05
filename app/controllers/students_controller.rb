@@ -1,7 +1,8 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:update_password,:change_password,:result,:show, :edit, :update, :destroy]
-  before_action :set_admin, only: [:index,:new,:create,:destroy,:result,:show,:edit,:update]
-  before_action :check_student_login , only: [:update_password,:change_password,:result,:show,:edit,:update]
+  before_action :set_admin, only: [:index,:new,:create,:destroy]
+  before_action :check_login , only: [:result,:show,:edit,:update]
+  before_action :check_student_login , only: [:update_password,:change_password]
 
   # GET /students
   # GET /students.json
@@ -79,6 +80,16 @@ class StudentsController < ApplicationController
   
   def result
   end
+  
+  def import
+    if params[:file] == nil
+      flash[:danger] = "Please Select the file first."
+      redirect_to :back
+    else
+      Student.import(params[:file])
+      redirect_to :back, notice: "Student imported."
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -91,15 +102,17 @@ class StudentsController < ApplicationController
       params.require(:student).permit(:name, :enrollment, :email, :password, :password_confirmation, :college_id, :semester_id, :branch_id, :batch_id, :dateofbirth, :father_name, :mothe_name, :phone, :current_address, :permanent_address)
     end
 
-    def set_admin
-      if admin_logged_in? || faculty_logged_in?
+    
+    
+    def check_login
+      if student_logged_in? || faculty_logged_in? || admin_logged_in?
       else
-        redirect_to admin_login_path
+        redirect_to faculty_login_path
       end
     end
     
     def check_student_login
-      if student_logged_in? || faculty_logged_in?
+      if student_logged_in?
       else
         redirect_to student_login_path
       end
