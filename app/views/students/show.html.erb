@@ -84,19 +84,21 @@
         </tr>
       </thead>
       <tbody>
+        <% @student.results.each do |result| %>
         <tr  class="default">
-          <td>1</td>
+          <td><% result.semester.id %></td>
           <td>Column content</td>
           <td>Column content</td>
-          <td><%= link_to 'Result' , { :action => "result", :semester_id => @student.semester_id } ,class:'btn btn-xs btn-info' %></td>
+          <td><%= link_to 'Result' , { :action => "result", :semester_id => result.semester.id } ,class:'btn btn-xs btn-info' %></td>
         </tr>
+        <% end %>
       </tbody>
     </table> 
     <% else %>
     <h4>No Result Available</h4>
     <% end %>
       <% if admin_logged_in? || faculty_logged_in? %>
-        <%= link_to 'New Result', new_result_path ,class:'btn btn-xs btn-danger'%>
+        <%= link_to 'New Result', new_result_path(@student, :semester_id => @student.semester_id) ,class:'btn btn-xs btn-danger'%>
       <% end %>
   </div>
 </div>

@@ -41,6 +41,29 @@ class Student < ActiveRecord::Base
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
+  
+  
+  def self.result(semester)
+    @results = self.results.where(:semester_id => semester)
+  end
+  
+  def self.sgpa(semester)
+
+  end
+  
+  def self.next_semester(semester)
+    if semester % 2 == 1
+      if no_of_backs(semester) > 5
+        semester = semester
+      else
+        semester = semester + 1
+      end
+    else
+    end
+  end
+  
+  def self.no_of_backs(semester)
+  end
 end
   
 

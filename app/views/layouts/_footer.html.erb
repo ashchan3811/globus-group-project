@@ -1,9 +1,23 @@
-<div class="container-fluid">
-      <p >
-      PopularName: GEC<br/>
-      Course: BE/B.Tech<br/>
-      Establishment: 2002<br/>
-      Management: Private College<br/>
-      Affiliated To: Rajiv Gandhi Proudhyogiki Vishwavidyalaya
-    </p>
-</div>
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#footer-menu">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <li class="navbar-text">Copyright &copy; GGI - 2016</li>
+    </div>
+
+    <div class="collapse navbar-collapse" id="footer-menu">
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to 'Subjects' , subjects_path %></li>
+        <li><%= link_to 'Admin' , admin_login_path %></li>
+        <li><%= link_to 'Student' , student_login_path  %></li>
+        <li><%= link_to 'Faculty' , faculty_login_path  %></li>
+        <li><%= link_to 'Contact' , contact_path  %></li>
+      </ul>
+    </div>
+  </div>
+</nav>

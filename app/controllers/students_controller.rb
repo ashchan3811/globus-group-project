@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:update_password,:change_password,:result,:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:new_result,:update_password,:change_password,:result,:show, :edit, :update, :destroy]
   before_action :set_admin, only: [:index,:new,:create,:destroy]
   before_action :check_login , only: [:result,:show,:edit,:update]
   before_action :check_student_login , only: [:update_password,:change_password]
@@ -89,6 +89,14 @@ class StudentsController < ApplicationController
       Student.import(params[:file])
       redirect_to :back, notice: "Student imported."
     end
+  end
+  
+  def new_result
+    @subjects = Subject.where(:branch_id => @student.branch_id , :semester_id => params[:semester_id])
+  end
+  
+  def create_result
+    binding.pry
   end
 
   private

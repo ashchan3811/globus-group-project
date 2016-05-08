@@ -23,11 +23,25 @@ class HomeController < ApplicationController
   end
   
   def sendMessage
+    if params[:email] && params[:message]
+      mail(:to => 'globusgroupbhopal@gmail.com',:subject => params[:subject] , :message => params[:message])
+    else
+      flash[:danger] = 'Please fill details first'
+      redirect_to :back
+    end
   end
   
   def gallery
   end
   
+  def bits
+  end
+  
+  def bit
+  end
+  
+  def gec
+  end
   #Admin Login Logic
   def admin_login
     if admin_logged_in?

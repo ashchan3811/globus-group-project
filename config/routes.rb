@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   
   get '/contact' , to: 'home#contact' , as: 'contact'
   get '/gallery' , to: 'home#gallery' , as: 'gallery'
+  get '/bits' , to: 'home#bits' , as: 'bits'
+  get '/bit' , to: 'home#bit' , as: 'bit'
+  get '/gec' , to: 'home#gec' , as: 'gec'
+  
   get 'admin/:id' , to: 'admin#index' , as: 'admin'
   get 'search' , to: 'home#search'
   
@@ -42,10 +46,12 @@ Rails.application.routes.draw do
   resources :faculties
   resources :subjects
   resources :fee_receipts
-  resources :results
+  #resources :results
   resources :students do
     collection { post :import }
   end
   
   get 'students/:id/results/:semester_id' , to: 'students#result', as: 'show_result'
+  get 'students/:id/new_result/:semester_id' , to: 'students#new_result' , as: 'new_result'
+  post 'students/:id/new_result/:semester_id' , to: 'students#create_result'
 end
