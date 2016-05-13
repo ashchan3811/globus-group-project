@@ -1,6 +1,9 @@
-<h1>Editing Subject</h1>
+<div class="page-header">
+  <h1>Editing Subject</h1>
+</div>
 
 <%= render 'form' %>
+<hr/>
 
-<%= link_to 'Show', @subject %> |
-<%= link_to 'Back', subjects_path %>
+<%= link_to 'Show', @subject  ,class:'btn btn-sm btn-success'%> |
+<%= link_to 'Back', subjects_path(:branch_id => @subject.branch.id) ,class:'btn btn-sm btn-info'%>

@@ -36,4 +36,11 @@ class ApplicationController < ActionController::Base
         redirect_to admin_login_path
       end
     end
+    
+    def set_faculty
+      if  faculty_logged_in?
+      else
+        redirect_to faculty_login_path
+      end
+    end
 end

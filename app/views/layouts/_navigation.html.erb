@@ -13,48 +13,14 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
          <li class="dropdown">
-	           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Colleges <span class="caret"></span></a>
+	           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Institutions<span class="caret"></span></a>
     		      <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                <li class="dropdown-submenu">
-                <a tabindex="-1" href="/bits">Bhopal Institute of Technology and Science</a>
-                <ul class="dropdown-menu">
-                  <li><a tabindex="-1" href="#">Civil Engineering</a></li>
-                  <li><a href="#">Computer Science</a></li>
-                  <li><a href="#">Mechanical Engineering</a></li>
-                  <li><a href="#">Electrical Engineering</a></li>
-                  <li><a href="#">Electronics Engineering</a></li>
-                </ul>
-              </li>
-              <li class="divider"></li>
-              <li class="dropdown-submenu">
-                <a tabindex="-1" href='/bit'>Bhopal Institute of Technology</a>
-                <ul class="dropdown-menu">
-                  <li><a tabindex="-1" href="#">Computer Science</a></li>
-                  <li><a href="#">Mechanical Engineering</a></li>
-                  <li><a href="#">Electrical Engineering</a></li>
-                  <li><a href="#">Electronics Engineering</a></li>
-                </ul>
-              </li>
-              <li class="divider"></li>
-              <li class="dropdown-submenu">
-                <a tabindex="-1" href="#">Bhopal Institute of Technology and Management</a>
-                <ul class="dropdown-menu">
-                  <li><a tabindex="-1" href="#">Computer Science</a></li>
-                  <li><a href="#">Mechanical Engineering</a></li>
-                  <li><a href="#">Electrical Engineering</a></li>
-                  <li><a href="#">Electronics Engineering</a></li>
-                </ul>
-              </li>
-              <li class="divider"></li>
-              <li class="dropdown-submenu">
-                <a tabindex="-1" href="/gec">Globus Engineering College</a>
-                <ul class="dropdown-menu">
-                  <li><a tabindex="-1" href="#">Computer Science</a></li>
-                  <li><a href="#">Mechanical Engineering</a></li>
-                  <li><a href="#">Electrical Engineering</a></li>
-                  <li><a href="#">Electronics Engineering</a></li>
-                </ul>
-              </li>
+    		        <li><%= link_to 'Bhopal Institute of Technology & Science' ,bits_path %></li>
+    		        <li><%= link_to 'Bhopal Institute of Technology & Science - Pharmacy' ,'' %></li>
+    		        <li><%= link_to 'Globus Engineering College' ,gec_path %></li>
+    		        <li><%= link_to 'Bhopal Institute of Technology' ,bit_path %></li>
+    		        <li><%= link_to 'Bhopal Institute of Technology & Management' ,'' %></li>
+    		        <li><%= link_to 'Globus College of Pharmacy' ,'' %></li>
               </ul>
 	        </li>
       </ul>

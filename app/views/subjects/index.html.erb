@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="page-header">
-  <h1>Listing Subjects</h1>
+  <h1>Listing Subjects - Branch : <%= @branch.name %></h1>
 </div>
 
 
@@ -18,7 +18,11 @@
 
   <tbody>
     <% @subjects.each do |subject| %>
-      <tr>
+      <% if subject.subject_type.id == 2 %> 
+        <tr class=default>
+      <% else %>
+        <tr class=danger>
+       <% end %>
         <td><%= subject.name %></td>
         <td><%= subject.code %></td>
         <td><%= subject.semester.id %></td>

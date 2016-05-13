@@ -78,19 +78,23 @@
       <thead>
         <tr>
           <th>Semester</th>
-          <th>CGPA</th>
           <th>SGPA</th>
+          <th>CGPA</th>
           <th>Result</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <% @student.results.each do |result| %>
-        <tr  class="default">
-          <td><% result.semester.id %></td>
-          <td>Column content</td>
-          <td>Column content</td>
-          <td><%= link_to 'Result' , { :action => "result", :semester_id => result.semester.id } ,class:'btn btn-xs btn-info' %></td>
-        </tr>
+        <% for i in 1..8  %>
+          <% if @student.results.where(:semester_id => i).present? %>
+          <tr class="default">
+            <td><%= i %></td>
+            <td><%= @student.sgpa(i) if @student.results.where(:semester_id => i).count > 0 %></td>
+            <td><%= @student.cgpa(i) if @student.results.where(:semester_id => i).count > 0 %></td>
+            <td>Result</td>
+            <td><%= link_to 'Edit Result' , edit_results_path(:student_id => @student.id , :semester_id => i) ,class:'btn btn-xs btn-danger'%></td>
+          </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table> 
@@ -98,7 +102,12 @@
     <h4>No Result Available</h4>
     <% end %>
       <% if admin_logged_in? || faculty_logged_in? %>
-        <%= link_to 'New Result', new_result_path(@student, :semester_id => @student.semester_id) ,class:'btn btn-xs btn-danger'%>
+        <% for i in 1..8 %>
+          <% if @student.results.where(:semester_id => i).blank? %>
+          <%= link_to 'Create Result for Next Semester', new_results_path(:student_id => @student.id , :semester_id => i) ,class:'btn btn-xs btn-danger'%>
+          <% break %>
+          <% end %>
+        <% end %>
       <% end %>
   </div>
 </div>

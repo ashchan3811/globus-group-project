@@ -22,47 +22,90 @@ class Student < ActiveRecord::Base
   validates_confirmation_of :password , on: :create
   validates :email , presence: true ,uniqueness: {case_sensitive: false}, format: {with: EMAIL_REGEX }
   
-  def self.import(file)
-   spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      student = find_by_id(row["enrollment"]) || new
-      student.attributes = row.to_hash.slice(*row.to_hash.keys)
-      student.save!
-    end
-  end
-  
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-    when ".csv" then Roo::CSV.new(file.path, nil, :ignore)
-    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-    else raise "Unknown file type: #{file.original_filename}"
-    end
-  end
-  
-  
-  def self.result(semester)
+  #DECIDE NEXT SEMESTER_SGPA_CGPA_NO_OF_BACKLOGS
+  def sgpa(semester)
     @results = self.results.where(:semester_id => semester)
-  end
-  
-  def self.sgpa(semester)
-
+    sgpa = 0
+    credit = 0
+    @results.each do |result|
+      if result.subject.subject_type.id == 2
+        sgpa = sgpa + result.grade.points * 4
+        credit = credit + 4
+      else
+        sgpa = sgpa + result.grade.points * 2
+        credit = credit + 2
+      end
+    end
+    sgpa = sgpa / credit
   end
   
   def self.next_semester(semester)
+    next_semester = semester
+    
     if semester % 2 == 1
-      if no_of_backs(semester) > 5
-        semester = semester
-      else
-        semester = semester + 1
+      next_semester = semester + 1
+    elsif semester == 4
+      backlogs = 0
+      for i in 1..4
+        backlogs = backlogs + no_of_backs(i)
       end
-    else
+      if backlogs > 0
+        next_semester = 4
+      else
+        next_semester = 5
+      end
+    elsif semester == 6
+      backlogs = 0
+      for i in 5..6
+        backlogs = backlogs + no_of_backs(i)
+      end
+      if backlogs > 5 
+        next_semester = 6
+      else
+        next_semester = 7
+      end
+    elsif semester == 2
+      backlogs = 0
+      for i in 1..2
+        backlogs = backlogs + no_of_backs(i)
+      end
+      if backlogs > 5
+        next_semester = 2
+      else
+        next_semester = 3
+      end
+    elsif semester == 8
+      backlogs = 0
+      for i in 5..8
+        backlogs = backlogs + no_of_backs(i)
+      end
+      if backlogs > 5
+        next_semester = 8
+      else
+        next_semester = 9
+      end
     end
   end
   
-  def self.no_of_backs(semester)
+  def no_of_backs(semester)
+    @results = self.results.where(:semester_id => semester)
+    back = 0
+    @results.each do |result|
+      if result.grade.grade == 'F' || result.grade.grade == 'I' || result.grade.grade == 'W'
+        back = back + 1
+      end
+    end
+    back
+  end
+  
+  def cgpa(i)
+    cgpa = 0
+    for i in 1..i
+      if sgpa(i) != 0
+        cgpa = cgpa + sgpa(i)
+      end
+    end
+    cgpa = cgpa / i
   end
 end
   

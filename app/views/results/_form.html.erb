@@ -1,35 +1,32 @@
-<%= render 'layouts/errors', object: @result %>
-<%= form_for(@result,html:{class: 'form-horizontal'}) do |f| %>
-  
+<%= form_tag({:action => 'update'},html:{class: 'form-horizontal' })do%>
+    <div class="form-group">
+      <input type="hidden" name="student_id" value="<%= @student.id %>" >
+      <input type="hidden" name="semester_id" value="<%= @student.semester_id %>">
+    </div>
+    
+    <% @subjects.each do |subject| %>
+      <div class="form-group">
+        <%= label_tag(:grade_id ,subject.name + ' - ' + subject.subject_type.name, class: 'col-md-4 col-sm-4') %>
+        <input type="hidden" name="subject_id[]" value="<%= subject.id %>">
+        <div class="col-sm-8 col-md-8 ">
+          <select name="result[grade_id][]" class="form-control">
+            <option value="1">A+</option>
+            <option value="2">A</option>
+            <option value="3">B+</option>
+            <option value="4">B</option>
+            <option value="5">C+</option>
+            <option value="6">C</option>
+            <option value="7">D</option>
+            <option value="8">F</option>
+            <option value="9">I</option>
+            <option value="10">W</option>
+          </select>
+        </div>
+      </div>
+    <% end %>
   <div class="form-group">
-       <%= f.label(:student_id,'Student', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
-       <div class="col-lg-10 col-sm-10 col-md-10">
-         <%= f.collection_select :student_id, Student.all, :id, :enrollment,{},{ :class => 'form-control'}  %>
-       </div>
-  </div>
-  <div class="form-group">
-       <%= f.label(:semester_id,'Semseter', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
-       <div class="col-lg-10 col-sm-10 col-md-10">
-         <%= f.collection_select :semester_id, Semester.all, :id, :name,{},{ :class => 'form-control'}  %>
-       </div>
-  </div>
-  <div class="form-group">
-       <%= f.label(:subject_id,'Subject', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
-       <div class="col-lg-10 col-sm-10 col-md-10">
-         <%= f.collection_select :subject_id, Subject.all, :id, :name,{},{ :class => 'form-control'}  %>
-       </div>
-  </div>
-  
-  <div class="form-group">
-       <%= f.label(:grade_id,'Grade', class: 'col-lg-2 col-md-2 col-sm-2 control-label') %>
-       <div class="col-lg-10 col-sm-10 col-md-10">
-         <%= f.collection_select :grade_id, Grade.all, :id, :grade,{},{ :class => 'form-control'}  %>
-       </div>
-  </div>
-  
-  <div class="form-group">
-    <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
-      <%= f.submit class: 'btn btn-danger btn-block'%>
+    <div class="col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4">
+      <%= submit_tag class: 'btn btn-danger btn-block'  %>
     </div>
   </div>
 <% end %>

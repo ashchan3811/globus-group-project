@@ -1,10 +1,12 @@
 class SubjectsController < ApplicationController
+  before_action :set_faculty, only: [:index,:new,:create,:show, :edit, :update, :destroy]
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   # GET /subjects
   # GET /subjects.json
   def index
-    @subjects = Subject.all
+
+    @subjects = Subject.where(:branch_id => @faculty.branch.id)
   end
 
   # GET /subjects/1

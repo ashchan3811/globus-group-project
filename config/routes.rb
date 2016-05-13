@@ -46,12 +46,6 @@ Rails.application.routes.draw do
   resources :faculties
   resources :subjects
   resources :fee_receipts
-  #resources :results
-  resources :students do
-    collection { post :import }
-  end
-  
-  get 'students/:id/results/:semester_id' , to: 'students#result', as: 'show_result'
-  get 'students/:id/new_result/:semester_id' , to: 'students#new_result' , as: 'new_result'
-  post 'students/:id/new_result/:semester_id' , to: 'students#create_result'
+  resource :results
+
 end
